@@ -9,7 +9,7 @@ import java.util.Date;
 public class StockRequestFormat implements Serializable {
     private static final long serialVersionUID = 1L;
     private int id;
-    private Chocolate chocolate;
+    private ChocolateFormat chocolate;
     private String trackingId;
     private int amount;
     private boolean isDelivered;
@@ -30,7 +30,7 @@ public class StockRequestFormat implements Serializable {
 
     public StockRequestFormat(int id, Chocolate chocolate, String trackingId, int amount, boolean isDelivered, Date createdAt, Date updatedAt) {
         this.id = id;
-        this.chocolate = chocolate;
+        this.chocolate = ChocolateFormat.fromChocolate(chocolate);
         this.trackingId = trackingId;
         this.amount = amount;
         this.isDelivered = isDelivered;
@@ -38,11 +38,11 @@ public class StockRequestFormat implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Chocolate getChocolate() {
+    public ChocolateFormat getChocolate() {
         return chocolate;
     }
 
-    public void setChocolate(Chocolate chocolate) {
+    public void setChocolate(ChocolateFormat chocolate) {
         this.chocolate = chocolate;
     }
 

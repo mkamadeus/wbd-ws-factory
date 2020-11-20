@@ -40,4 +40,9 @@
           implementation="services.AddIngredientStock"
           url-pattern="/services/addIngredientStock"/>
 
+  <endpoint
+          name="GetAvailableIngredients"
+          implementation="services.GetAvailableIngredients"
+          url-pattern="/services/getAvailableIngredients"/>
+
 </endpoints>

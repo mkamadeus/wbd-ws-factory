@@ -111,24 +111,21 @@ public class DaoIngredientStock implements IngredientStockDao{
         return statement.executeUpdate() > 0;
     }
 
-    public List<IngredientStock> findAllNonExpiredByIngredientId(int queryIngredientId) throws SQLException {
-        long now = System.currentTimeMillis();
-        List<IngredientStock> ingredientStockList = new ArrayList<>();
-        String query = "SELECT id, ingredient_id, stock, expiry_date FROM `ingredients_stock` WHERE ingredient_id=? AND expiry_date < ?";
+    public int getAvailableSumByIngredientId(int queryIngredientId, Date expiryDate) throws SQLException {
+        String query = "SELECT COALESCE(SUM(stock), 0) AS TOTAL FROM `ingredients_stock` WHERE ingredient_id=? AND expiry_date > ?";
 
         Connection conn = DataSourceFactory.getConn();
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, queryIngredientId);
-        statement.setDate(2, new Date(now));
+        statement.setDate(2, expiryDate);
         ResultSet resultSet = statement.executeQuery();
 
-        while(resultSet.next()){
-            int id = resultSet.getInt("id");
-            int ingredientId = resultSet.getInt("ingredient_id");
-            int stock = resultSet.getInt("stock");
-            Date expiryDate = resultSet.getDate("expiry_date");
-            ingredientStockList.add(new IngredientStock(id, ingredientId, stock, expiryDate));
+        int total = -1;
+
+        if(resultSet.next()) {
+            total = resultSet.getInt("TOTAL");
         }
-        return ingredientStockList;
+
+        return total;
     }
 }
