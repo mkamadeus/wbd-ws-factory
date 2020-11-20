@@ -45,4 +45,9 @@
           implementation="services.GetAvailableIngredients"
           url-pattern="/services/getAvailableIngredients"/>
 
+  <endpoint
+          name="GetAllRecipes"
+          implementation="services.GetAllRecipes"
+          url-pattern="/services/getAllRecipes"/>
+
 </endpoints>

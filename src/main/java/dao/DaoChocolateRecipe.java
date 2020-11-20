@@ -1,6 +1,7 @@
 package dao;
 
 import data.ChocolateRecipe;
+import data.Ingredient;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -107,5 +108,23 @@ public class DaoChocolateRecipe implements ChocolateRecipeDao{
         statement.setInt(1, chocolateRecipe.getId());
 
         return statement.executeUpdate() > 0;
+    }
+
+    public List<ChocolateRecipe> findAllByChocolateId(int chocolateId) throws SQLException {
+        List<ChocolateRecipe> chocolateRecipeList = new ArrayList<>();
+        String query = "SELECT id, ingredient_id, amount FROM `chocolate_recipe` WHERE chocolate_id = ?";
+
+        Connection conn = DataSourceFactory.getConn();
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1, chocolateId);
+        ResultSet resultSet = statement.executeQuery();
+
+        while(resultSet.next()){
+            int id = resultSet.getInt("id");
+            int ingredientId = resultSet.getInt("ingredient_id");
+            int amount = resultSet.getInt("amount");
+            chocolateRecipeList.add(new ChocolateRecipe(id, chocolateId, ingredientId, amount));
+        }
+        return chocolateRecipeList;
     }
 }
