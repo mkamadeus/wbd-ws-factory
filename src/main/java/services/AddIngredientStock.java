@@ -1,9 +1,6 @@
 package services;
 
-import dao.DaoChocolate;
-import dao.DaoIngredient;
-import dao.DaoIngredientStock;
-import dao.DaoStockRequest;
+import dao.*;
 import data.Chocolate;
 import data.Ingredient;
 import data.IngredientStock;
@@ -20,9 +17,21 @@ import java.util.Optional;
 public class AddIngredientStock {
 
     @WebMethod
-    public boolean addIngredientStock(String uuid, String name, int stock, Date expiryDate) throws Exception {
+    public boolean addIngredientStock(String uuid, String name, int stock, Date expiryDate, long totalPrice) throws Exception {
         DaoIngredient ingredientDao = DaoIngredient.getInstance();
         DaoIngredientStock ingredientStockDao = DaoIngredientStock.getInstance();
+        DaoBalance balanceDao = DaoBalance.getInstance();
+
+        long remainingBalance = balanceDao.getBalance()-totalPrice;
+        if(remainingBalance < 0){
+            throw new Exception("Not enough factory balance to buy ingredients.");
+        }
+
+        boolean success = balanceDao.updateBalance(remainingBalance);
+
+        if(!success){
+            throw new Exception("Failed to update balance.");
+        }
 
         Optional<Ingredient> optionalIngredient = ingredientDao.findByUUID(uuid);
 
@@ -31,7 +40,7 @@ public class AddIngredientStock {
         if(!optionalIngredient.isPresent()){
             Ingredient ingredient = new Ingredient(-1, name, uuid);
             ingredientId = ingredientDao.save(ingredient);
-            if(ingredientId<=0) {
+            if(ingredientId<0) {
                 throw new Exception("Failed to create new Ingredient.");
             }
         }
@@ -43,6 +52,6 @@ public class AddIngredientStock {
                 -1, ingredientId, stock, expiryDate
         );
 
-        return ingredientStockDao.save(ingredientStock)>0;
+        return ingredientStockDao.save(ingredientStock)>=0;
     }
 }
