@@ -50,4 +50,9 @@
           implementation="services.GetAllRecipes"
           url-pattern="/services/getAllRecipes"/>
 
+  <endpoint
+          name="AddChocolateRecipe"
+          implementation="services.AddChocolateRecipe"
+          url-pattern="/services/addChocolateRecipe"/>
+
 </endpoints>

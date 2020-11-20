@@ -64,7 +64,7 @@ public class DaoChocolate implements ChocolateDao{
 
     @Override
     public int save(Chocolate chocolate) throws SQLException {
-        String query = "INSERT INTO `chocolate` (name, uuid, stock, recipe_cost) VALUES (?, ?, ?)";
+        String query = "INSERT INTO `chocolate` (name, uuid, stock, recipe_cost) VALUES (?, ?, ?, ?)";
 
         Connection conn = DataSourceFactory.getConn();
         PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

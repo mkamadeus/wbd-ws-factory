@@ -4,7 +4,6 @@ import dao.*;
 import data.Chocolate;
 import data.ChocolateRecipe;
 import data.Ingredient;
-import data.StockRequest;
 import formats.*;
 
 import javax.jws.WebMethod;
@@ -31,13 +30,13 @@ public class GetAllRecipes {
     }
 
     @WebMethod
-    public RecipeFormat[] getAllRecipes() throws Exception {
+    public ResponseRecipeFormat[] getAllRecipes() throws Exception {
 
         DaoChocolate chocolateDao = DaoChocolate.getInstance();
         DaoChocolateRecipe chocolateRecipeDao = DaoChocolateRecipe.getInstance();
         DaoIngredient ingredientDao = DaoIngredient.getInstance();
 
-        List<RecipeFormat> recipeFormatList = new ArrayList<>();
+        List<ResponseRecipeFormat> responseRecipeFormatList = new ArrayList<>();
         List<Chocolate> chocolateList = chocolateDao.findAll();
 
         for (Chocolate chocolate : chocolateList) {
@@ -61,16 +60,16 @@ public class GetAllRecipes {
             }
 
             IngredientAmountPair[] pairArray = new IngredientAmountPair[ingredientAmountPairs.size()];
-            recipeFormatList.add(
-                    new RecipeFormat(
+            responseRecipeFormatList.add(
+                    new ResponseRecipeFormat(
                             ChocolateFormat.fromChocolate(chocolate),
                             ingredientAmountPairs.toArray(pairArray)
                     )
             );
         }
 
-        RecipeFormat[] response = new RecipeFormat[recipeFormatList.size()];
-        response = recipeFormatList.toArray(response);
+        ResponseRecipeFormat[] response = new ResponseRecipeFormat[responseRecipeFormatList.size()];
+        response = responseRecipeFormatList.toArray(response);
         return response;
     }
 }
