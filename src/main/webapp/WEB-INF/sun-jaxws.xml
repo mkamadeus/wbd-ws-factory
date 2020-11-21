@@ -60,4 +60,19 @@
           implementation="services.MakeChocolate"
           url-pattern="/services/makeChocolate"/>
 
+  <endpoint
+          name="Register"
+          implementation="services.Register"
+          url-pattern="/services/register"/>
+
+  <endpoint
+          name="Login"
+          implementation="services.Login"
+          url-pattern="/services/login"/>
+
+  <endpoint
+          name="Logout"
+          implementation="services.Logout"
+          url-pattern="/services/logout"/>
+
 </endpoints>
