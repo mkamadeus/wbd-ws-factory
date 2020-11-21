@@ -20,9 +20,9 @@ public class DaoChocolate implements ChocolateDao{
 
     @Override
     public Optional<Chocolate> find(String id) throws SQLException {
-        String query = "SELECT name, uuid, stock, recipe_cost FROM `chocolate` WHERE id=?";
+        String query = "SELECT name, uuid, stock, price FROM `chocolate` WHERE id=?";
         int stock;
-        int recipeCost;
+        int price;
         String name;
         String uuid;
         Optional<Chocolate> chocolate = Optional.empty();
@@ -36,8 +36,8 @@ public class DaoChocolate implements ChocolateDao{
             name = resultSet.getString("name");
             uuid = resultSet.getString("uuid");
             stock = resultSet.getInt("stock");
-            recipeCost = resultSet.getInt("recipe_cost");
-            chocolate = Optional.of(new Chocolate(Integer.parseInt(id), uuid, name, stock, recipeCost));
+            price = resultSet.getInt("price");
+            chocolate = Optional.of(new Chocolate(Integer.parseInt(id), uuid, name, stock, price));
         }
         return chocolate;
     }
@@ -45,7 +45,7 @@ public class DaoChocolate implements ChocolateDao{
     @Override
     public List<Chocolate> findAll() throws SQLException {
         List<Chocolate> chocolateList = new ArrayList<>();
-        String query = "SELECT id, name, uuid, stock, recipe_cost FROM `chocolate`";
+        String query = "SELECT id, name, uuid, stock, price FROM `chocolate`";
 
         Connection conn = DataSourceFactory.getConn();
         PreparedStatement statement = conn.prepareStatement(query);
@@ -56,22 +56,22 @@ public class DaoChocolate implements ChocolateDao{
             String name = resultSet.getString("name");
             String uuid = resultSet.getString("uuid");
             int stock = resultSet.getInt("stock");
-            int recipeCost = resultSet.getInt("recipe_cost");
-            chocolateList.add(new Chocolate(id, uuid, name, stock, recipeCost));
+            int price = resultSet.getInt("price");
+            chocolateList.add(new Chocolate(id, uuid, name, stock, price));
         }
         return chocolateList;
     }
 
     @Override
     public int save(Chocolate chocolate) throws SQLException {
-        String query = "INSERT INTO `chocolate` (name, uuid, stock, recipe_cost) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO `chocolate` (name, uuid, stock, price) VALUES (?, ?, ?, ?)";
 
         Connection conn = DataSourceFactory.getConn();
         PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, chocolate.getName());
         statement.setString(2, chocolate.getUUID());
         statement.setInt(3, chocolate.getStock());
-        statement.setInt(4, chocolate.getRecipeCost());
+        statement.setInt(4, chocolate.getPrice());
         statement.executeUpdate();
 
         int id;
@@ -89,14 +89,14 @@ public class DaoChocolate implements ChocolateDao{
 
     @Override
     public boolean update(Chocolate chocolate) throws SQLException {
-        String query = "UPDATE `chocolate` SET name = ?, uuid= ?, stock = ?, recipe_cost = ? WHERE id = ?";
+        String query = "UPDATE `chocolate` SET name = ?, uuid= ?, stock = ?, price = ? WHERE id = ?";
 
         Connection conn = DataSourceFactory.getConn();
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setString(1, chocolate.getName());
         statement.setString(2, chocolate.getUUID());
         statement.setInt(3, chocolate.getStock());
-        statement.setInt(4, chocolate.getRecipeCost());
+        statement.setInt(4, chocolate.getPrice());
         statement.setInt(5, chocolate.getId());
 
         return statement.executeUpdate() > 0;
@@ -114,9 +114,9 @@ public class DaoChocolate implements ChocolateDao{
     }
 
     public Optional<Chocolate> findByUUID(String uuid) throws SQLException {
-        String query = "SELECT id, name, stock, recipe_cost FROM `chocolate` WHERE uuid=?";
+        String query = "SELECT id, name, stock, price FROM `chocolate` WHERE uuid=?";
         int stock;
-        int recipeCost;
+        int price;
         int id;
         String name;
         Optional<Chocolate> chocolate = Optional.empty();
@@ -130,8 +130,8 @@ public class DaoChocolate implements ChocolateDao{
             id = resultSet.getInt("id");
             name = resultSet.getString("name");
             stock = resultSet.getInt("stock");
-            recipeCost = resultSet.getInt("recipe_cost");
-            chocolate = Optional.of(new Chocolate(id, uuid, name, stock, recipeCost));
+            price = resultSet.getInt("price");
+            chocolate = Optional.of(new Chocolate(id, uuid, name, stock, price));
         }
         return chocolate;
     }

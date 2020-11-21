@@ -84,7 +84,7 @@ public class MakeChocolate {
                 chocolate.getUUID(),
                 chocolate.getName(),
                 chocolate.getStock()+amount,
-                chocolate.getRecipeCost()
+                chocolate.getPrice()
         );
 
 

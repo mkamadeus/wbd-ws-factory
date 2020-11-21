@@ -36,16 +36,12 @@ public class AddChocolateRecipe {
         DaoChocolate chocolateDao = DaoChocolate.getInstance();
         DaoChocolateRecipe chocolateRecipeDao = DaoChocolateRecipe.getInstance();
 
-        System.out.println(requestRecipeFormat.getName());
-        System.out.println(requestRecipeFormat.getRecipeCost());
-        System.out.println(requestRecipeFormat.getIngredients().length);
-
         Chocolate chocolate = new Chocolate(
                 -1,
                 "",
                 requestRecipeFormat.getName(),
                 0,
-                requestRecipeFormat.getRecipeCost()
+                requestRecipeFormat.getPrice()
         );
 
         chocolate.generateUUID();

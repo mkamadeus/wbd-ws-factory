@@ -10,7 +10,7 @@ public class ChocolateFormat implements Serializable{
     private String uuid;
     private String name;
     private int stock;
-    private int recipeCost;
+    private int price;
 
     public static ChocolateFormat fromChocolate(Chocolate chocolate){
         return new ChocolateFormat(
@@ -18,16 +18,16 @@ public class ChocolateFormat implements Serializable{
                 chocolate.getUUID(),
                 chocolate.getName(),
                 chocolate.getStock(),
-                chocolate.getRecipeCost()
+                chocolate.getPrice()
         );
     }
 
-    public ChocolateFormat(int id, String uuid, String name, int stock, int recipeCost) {
+    public ChocolateFormat(int id, String uuid, String name, int stock, int price) {
         this.id = id;
         this.uuid = uuid;
         this.name = name;
         this.stock = stock;
-        this.recipeCost = recipeCost;
+        this.price = price;
     }
 
     public String getName() {
@@ -54,12 +54,12 @@ public class ChocolateFormat implements Serializable{
         this.uuid = uuid;
     }
 
-    public int getRecipeCost() {
-        return recipeCost;
+    public int getPrice() {
+        return price;
     }
 
-    public void setRecipeCost(int recipeCost) {
-        this.recipeCost = recipeCost;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getId() {
