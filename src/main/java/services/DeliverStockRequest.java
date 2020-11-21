@@ -9,6 +9,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +49,9 @@ public class DeliverStockRequest {
         if(remainingStock < 0){
             throw new Exception("Not enough chocolate stock, request not delivered.");
         }
-
+        
         stockRequest.setDelivered(true);
+        stockRequest.setUpdatedAt(new Date());
         chocolate.setStock(remainingStock);
 
         return stockRequestDao.update(stockRequest) && chocolateDao.update(chocolate);
