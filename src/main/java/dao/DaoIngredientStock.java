@@ -92,10 +92,10 @@ public class DaoIngredientStock implements IngredientStockDao{
         Connection conn = DataSourceFactory.getConn();
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, ingredientStock.getIngredientId());
-        statement.setInt(1, ingredientStock.getStock());
+        statement.setInt(2, ingredientStock.getStock());
         Date dateExpiryDate = new Date(ingredientStock.getExpiryDate().getTime());
-        statement.setDate(1, dateExpiryDate);
-        statement.setInt(2, ingredientStock.getId());
+        statement.setDate(3, dateExpiryDate);
+        statement.setInt(4, ingredientStock.getId());
 
         return statement.executeUpdate() > 0;
     }
@@ -111,13 +111,13 @@ public class DaoIngredientStock implements IngredientStockDao{
         return statement.executeUpdate() > 0;
     }
 
-    public int getAvailableSumByIngredientId(int queryIngredientId, Date expiryDate) throws SQLException {
+    public int getAvailableSumByIngredientId(int queryIngredientId, Date current) throws SQLException {
         String query = "SELECT COALESCE(SUM(stock), 0) AS TOTAL FROM `ingredients_stock` WHERE ingredient_id=? AND expiry_date > ?";
 
         Connection conn = DataSourceFactory.getConn();
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, queryIngredientId);
-        statement.setDate(2, expiryDate);
+        statement.setDate(2, current);
         ResultSet resultSet = statement.executeQuery();
 
         int total = -1;
@@ -128,4 +128,25 @@ public class DaoIngredientStock implements IngredientStockDao{
 
         return total;
     }
+
+    public List<IngredientStock> getAvailableByIngredientId(int queryIngredientId, Date current) throws SQLException {
+        List<IngredientStock> ingredientStockList = new ArrayList<>();
+        String query = "SELECT id, stock, expiry_date FROM `ingredients_stock` WHERE ingredient_id=? AND expiry_date > ? ORDER BY expiry_date ASC";
+
+        Connection conn = DataSourceFactory.getConn();
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1, queryIngredientId);
+        statement.setDate(2, current);
+        ResultSet resultSet = statement.executeQuery();
+
+        while(resultSet.next()){
+            int id = resultSet.getInt("id");
+            int stock = resultSet.getInt("stock");
+            Date expiryDate = resultSet.getDate("expiry_date");
+            ingredientStockList.add(new IngredientStock(id, queryIngredientId, stock, expiryDate));
+        }
+        return ingredientStockList;
+    }
+
+
 }

@@ -55,4 +55,9 @@
           implementation="services.AddChocolateRecipe"
           url-pattern="/services/addChocolateRecipe"/>
 
+  <endpoint
+          name="MakeChocolate"
+          implementation="services.MakeChocolate"
+          url-pattern="/services/makeChocolate"/>
+
 </endpoints>
