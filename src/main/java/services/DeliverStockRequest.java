@@ -49,7 +49,7 @@ public class DeliverStockRequest {
         if(remainingStock < 0){
             throw new Exception("Not enough chocolate stock, request not delivered.");
         }
-        
+
         stockRequest.setDelivered(true);
         stockRequest.setUpdatedAt(new Date());
         chocolate.setStock(remainingStock);
