@@ -40,8 +40,7 @@ public class AddChocolateRecipe {
                 -1,
                 "",
                 requestRecipeFormat.getName(),
-                0,
-                requestRecipeFormat.getPrice()
+                0
         );
 
         chocolate.generateUUID();

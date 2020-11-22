@@ -7,14 +7,12 @@ public class Chocolate{
     private String uuid;
     private String name;
     private int stock;
-    private int price;
 
-    public Chocolate(int id, String uuid, String name, int stock, int price) {
+    public Chocolate(int id, String uuid, String name, int stock) {
         this.id = id;
         this.uuid = uuid;
         this.name = name;
         this.stock = stock;
-        this.price = price;
     }
 
     public int getId() {
@@ -35,14 +33,6 @@ public class Chocolate{
 
     public void setStock(int stock) {
         this.stock = stock;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public String getUUID() {

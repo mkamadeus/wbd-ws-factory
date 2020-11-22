@@ -10,24 +10,21 @@ public class ChocolateFormat implements Serializable{
     private String uuid;
     private String name;
     private int stock;
-    private int price;
 
     public static ChocolateFormat fromChocolate(Chocolate chocolate){
         return new ChocolateFormat(
                 chocolate.getId(),
                 chocolate.getUUID(),
                 chocolate.getName(),
-                chocolate.getStock(),
-                chocolate.getPrice()
+                chocolate.getStock()
         );
     }
 
-    public ChocolateFormat(int id, String uuid, String name, int stock, int price) {
+    public ChocolateFormat(int id, String uuid, String name, int stock) {
         this.id = id;
         this.uuid = uuid;
         this.name = name;
         this.stock = stock;
-        this.price = price;
     }
 
     public String getName() {
@@ -52,14 +49,6 @@ public class ChocolateFormat implements Serializable{
 
     public void setUUID(String uuid) {
         this.uuid = uuid;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public int getId() {
