@@ -5,7 +5,7 @@ import java.sql.*;
 public class DataSourceFactory {
 
     private static String HOST = "127.0.0.1";
-    private static String IP = "3306";
+    private static String PORT = "3306";
     private static String DBNAME = "ws_factory";
     private static String USER = "root";
     private static String PASSWORD = "123";
