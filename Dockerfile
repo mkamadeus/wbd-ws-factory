@@ -3,7 +3,7 @@ ADD . /app
 WORKDIR /app
 RUN ["mvn", "package"]
 
-FROM tomcat:9.0-alpine
+FROM tomcat:latest
 COPY --from=maven_builder /app/target/webapp.war $CATALINA_HOME/webapps
 ADD dependencies/mysql-connector-java-8.0.22.jar $CATALINA_HOME/lib/
 ADD dependencies/web.xml $CATALINA_HOME/conf/
