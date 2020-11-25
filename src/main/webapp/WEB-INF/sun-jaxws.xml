@@ -75,4 +75,9 @@
           implementation="services.Logout"
           url-pattern="/services/logout"/>
 
+  <endpoint
+          name="CheckSession"
+          implementation="services.CheckSession"
+          url-pattern="/services/checkSession"/>
+
 </endpoints>
