@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+  <endpoint
+          name="AddBalanceWebService"
+          implementation="services.AddBalance"
+          url-pattern="/services/addBalance"/>
+
+  <endpoint
+          name="GetBalanceWebService"
+          implementation="services.GetBalance"
+          url-pattern="/services/getBalance"/>
+
+  <endpoint
+          name="GetAllChocolatesWebService"
+          implementation="services.GetAllChocolates"
+          url-pattern="/services/getAllChocolates"/>
+
+  <endpoint
+          name="AddStockRequest"
+          implementation="services.AddStockRequest"
+          url-pattern="/services/addStockRequest"/>
+
+  <endpoint
+          name="GetAllStockRequests"
+          implementation="services.GetAllStockRequests"
+          url-pattern="/services/getAllStockRequests"/>
+
+  <endpoint
+          name="IsStockRequestDelivered"
+          implementation="services.IsStockRequestDelivered"
+          url-pattern="/services/isStockRequestDelivered"/>
+
+  <endpoint
+          name="DeliverStockRequest"
+          implementation="services.DeliverStockRequest"
+          url-pattern="/services/deliverStockRequest"/>
+
+  <endpoint
+          name="AddIngredientStock"
+          implementation="services.AddIngredientStock"
+          url-pattern="/services/addIngredientStock"/>
+
+  <endpoint
+          name="GetAvailableIngredients"
+          implementation="services.GetAvailableIngredients"
+          url-pattern="/services/getAvailableIngredients"/>
+
+  <endpoint
+          name="GetAllRecipes"
+          implementation="services.GetAllRecipes"
+          url-pattern="/services/getAllRecipes"/>
+
+  <endpoint
+          name="AddChocolateRecipe"
+          implementation="services.AddChocolateRecipe"
+          url-pattern="/services/addChocolateRecipe"/>
+
+  <endpoint
+          name="MakeChocolate"
+          implementation="services.MakeChocolate"
+          url-pattern="/services/makeChocolate"/>
+
+  <endpoint
+          name="Register"
+          implementation="services.Register"
+          url-pattern="/services/register"/>
+
+  <endpoint
+          name="Login"
+          implementation="services.Login"
+          url-pattern="/services/login"/>
+
+  <endpoint
+          name="Logout"
+          implementation="services.Logout"
+          url-pattern="/services/logout"/>
+
+  <endpoint
+          name="CheckSession"
+          implementation="services.CheckSession"
+          url-pattern="/services/checkSession"/>
+
+</endpoints>
